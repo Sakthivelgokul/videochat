@@ -1,18 +1,22 @@
-import express from "express"; 
-import http from "http";
-import {Server} from "socket.io"
+import express from "express";
+import { createServer } from "http";
+import { Server } from "socket.io";
 
 const app = express();
-const server = http.createServer(app);
-const io=new Server(server,{
-        cors:{origin:"*"}
-    });
-io.on("connection",(socket)=>{
-    console.log("a user connected",socket.id)
-    io.emit("hi",()=>{
-        console.log("noy")
-    })
-})
+const server = createServer(app);
+const io = new Server(server, {
+  cors: { origin: "*" },
+  method: ["GET", "POST"],
+});
+io.on("connection", (socket) => {
+  console.log("hi");
+  console.log("a user connected", socket.id);
+  socket.emit("hi", () => {
+    console.log("noy");
+  });
+  socket.on("disconnect", () => {
+    console.log("user disconnected", socket.id);
+  });
+});
 
-export  {io,server,app}
-
+export { io, server, app };
