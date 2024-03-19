@@ -17,6 +17,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("user disconnected", socket.id);
   });
+  socket.on('create', function(room) {
+    socket.join(room);
+    console.log("conneted in " +room)
+  });
 });
 
 export { io, server, app };

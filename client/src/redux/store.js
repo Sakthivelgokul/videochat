@@ -1,1 +1,8 @@
-import {configurestore} from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
+import roomReducer from "./userSlice"
+
+export const store =configureStore({
+  reducer:{
+      room :roomReducer,
+  }
+})

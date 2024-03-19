@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { io } from "socket.io-client";
-
+import Room from "../componets/roomController";
 export default function Home() {
   useEffect(() => {
     const socket = io("http://localhost:3000/");
@@ -10,11 +10,17 @@ export default function Home() {
     socket.on("hi", () => {
       console.log("noy");
     });
+
+function createRoom(){
+socket.emit("create","public");
+
+}
   }, []);
+
 
   return (
     <>
-      <p>home</p>
+    <Room createRoom={createRoom()} />
     </>
   );
 }
