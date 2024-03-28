@@ -9,7 +9,6 @@ const io = new Server(server, {
   method: ["GET", "POST"],
 });
 io.on("connection", (socket) => {
-  console.log("hi");
   console.log("a user connected", socket.id);
   socket.emit("hi", () => {
     console.log("noy");
@@ -19,8 +18,12 @@ io.on("connection", (socket) => {
   });
   socket.on('create', function(room) {
     socket.join(room);
-    console.log("conneted in " +room)
+    console.log("conneted in " + room)
   });
+  socket.on("message", (val) => {
+    console.log(val);
+    io.emit("newMesage", val);
+  })
 });
 
 export { io, server, app };

@@ -1,26 +1,23 @@
 import { useEffect } from "react";
-import { io } from "socket.io-client";
 import Room from "../componets/roomController";
+import { useSelector, useDispatch } from "react-redux";
+import Message from "../componets/messageDisplay";
+
 export default function Home() {
+  const socket = useSelector((state) => state.socket.socket);
   useEffect(() => {
-    const socket = io("http://localhost:3000/");
     socket.on("connect", () => {
       console.log("connet");
     });
     socket.on("hi", () => {
       console.log("noy");
     });
-
-function createRoom(){
-socket.emit("create","public");
-
-}
   }, []);
 
-
   return (
-    <>
-    <Room createRoom={createRoom()} />
-    </>
+    <div className="flex flex-row">
+      <Room />
+      <Message />
+    </div>
   );
 }
